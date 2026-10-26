@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Attendance Planner</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><a href="#" class="brand">Attendance <i>Planner</i></a><button class="link" data-view="settings">Settings</button></header>
+  <main>
+    <section class="hero"><p>PRIVATE · LOCAL ONLY</p><h1>Plan your attendance<br><em>with confidence.</em></h1><span id="term-summary">Create a term to begin.</span></section>
+    <nav><button data-view="dashboard" class="active">Overview</button><button data-view="log">Log attendance</button><button data-view="settings">Settings</button></nav>
+
+    <section id="dashboard" class="view active">
+      <div class="heading"><div><p>YOUR TERM</p><h2>Attendance overview</h2></div><select id="active-term"></select></div>
+      <div id="empty-dashboard" class="empty"><h3>Start your first academic term</h3><p>Add a term, subjects, and timetable in Settings. Nothing is prefilled.</p><button class="primary" data-view="settings">Open Settings</button></div>
+      <div id="cards" class="cards"></div>
+    </section>
+
+    <section id="log" class="view">
+      <div class="heading"><div><p>UPDATE STATUS</p><h2>Log attendance</h2></div></div>
+      <div class="panel"><label>Date <input type="date" id="log-date"></label><div id="day-slots" class="chips"></div><div class="actions"><button id="day-attend" class="primary">Mark whole day attended</button><button id="day-miss">Mark whole day missed</button></div><small>A timetable slot is counted by its attendance units. Logged slots cannot be counted twice.</small></div>
+      <div class="panel"><h3>Individual classes</h3><div id="slot-actions"></div></div>
+      <div class="panel"><h3>Recent updates</h3><div id="logs"></div></div>
+    </section>
+
+    <section id="settings" class="view">
+      <div class="heading"><div><p>CONTROL PANEL</p><h2>Settings</h2></div></div>
+      <div class="panel"><h3>Year plan</h3><form id="term-form" class="form grid4"><input name="name" placeholder="Term name" required><input name="start" type="date" required><input name="end" type="date" required><button class="primary">Add term</button></form><div id="terms" class="list"></div></div>
+      <div id="term-settings" hidden>
+        <div class="panel"><h3>No-class period</h3><form id="break-form" class="form grid4"><input name="name" placeholder="Holiday, ISA week, exams…" required><input name="start" type="date" required><input name="end" type="date" required><button class="primary">Add period</button></form><div id="breaks" class="list"></div></div>
+        <div class="panel"><h3>Subjects and portal status</h3><p>Saving these totals replaces local logs for this term, preventing double-counting.</p><form id="subject-form" class="form subject-form"><input name="name" placeholder="Subject name" required><input name="attended" type="number" min="0" placeholder="Attended" required><input name="held" type="number" min="0" placeholder="Held" required><input name="asOf" type="date" required><input name="target" type="number" min="1" max="100" value="75" placeholder="Required %" required><button class="primary">Add subject</button></form><div id="subjects" class="list"></div></div>
+        <div class="panel"><h3>Weekly timetable</h3><form id="slot-form" class="form grid5"><select name="day" required><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select><input name="time" type="time"><select name="subject" id="slot-subject" required></select><input name="units" type="number" min="1" value="1" required><button class="primary">Add class</button></form><small>Attendance units let a two-hour lab count as 2, while a regular class stays at 1.</small><div id="slots" class="list"></div></div>
+      </div>
+      <div class="panel"><h3>Backup</h3><div class="actions"><button id="export">Export backup</button><label class="button">Import backup<input id="import" type="file" accept="application/json" hidden></label><button id="reset" class="danger">Reset all data</button></div></div>
+    </section>
+  </main>
+  <div id="toast" role="status"></div><script src="app.js"></script>
+</body></html>
